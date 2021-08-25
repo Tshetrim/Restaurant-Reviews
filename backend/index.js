@@ -14,6 +14,7 @@ const options = {
   useCreateIndex: true,
   poolSize: 50, // Maintain up to 10 socket connections
   //socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
+  useFindAndModify: false,
 };
 //conneting to mongoose and if sucessful, spinning up server on port
 mongoose.connect(process.env.RESTAURANTS_DB_URI, options, (err) => {
@@ -27,22 +28,6 @@ mongoose.connect(process.env.RESTAURANTS_DB_URI, options, (err) => {
     });
   }
 });
-
-const restaurantsPerPage = 5;
-const pageNumber = 10;
-const arr = [];
-
-const query = Restaurants.find({})
-  .limit(restaurantsPerPage)
-  .skip(restaurantsPerPage * pageNumber)
-  .lean(true)
-  .exec((err, restaurants) => {
-    for (const restaurant of restaurants) {
-      arr.push(restaurant);
-    }
-  });
-
-//console.log(RD.getRestaurants(restaurantsPerPage, pageNumber));
 
 //establshing port at process.env.PORT or 3000 as default
 const port = process.env.PORT || 3000;

@@ -71,13 +71,14 @@ export default class RestaurantsDAO {
         res.status(404).json({ error: "Not found" });
       }
 
-      const restaurantId = "" + restaurant.restaurant_id;
+      const restaurantId = "" + restaurant._id;
       console.log(restaurantId);
 
       Review.find({ restaurantID: restaurantId }).exec((err, reviews) => {
         if (reviews) {
           //console.log("Reviews found");
-          res.json({ restaurant, reviews });
+          restaurant.reviews = reviews;
+          res.json(restaurant);
         } else {
           //console.log("No Reviews Found");
           res.json(restaurant);

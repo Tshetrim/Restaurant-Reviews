@@ -11,6 +11,7 @@ export default class ReviewsController {
   static async apiUpdateReview(req, res) {
     ReviewsDAO.updateReview(req, res);
   }
+  
   static async apiDeleteReview(req, res) {
     ReviewsDAO.deleteReview(req, res);
   }
